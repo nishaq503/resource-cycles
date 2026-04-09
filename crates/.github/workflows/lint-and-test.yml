@@ -1,0 +1,20 @@
+name: Lint and Test
+
+on: push
+
+permissions:
+  contents: read
+
+jobs:
+  lint-and-test:
+    name: Lint and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Rust
+        run: rustup update --no-self-update
+      - name: Run linters
+        uses: j178/prek-action@v2
+      - name: Run Rust tests
+        run: cargo test --release --all-features --workspace

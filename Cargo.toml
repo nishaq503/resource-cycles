@@ -1,0 +1,35 @@
+[workspace]
+members = [
+    "crates/oxygen-not-included",
+    "crates/resource-cycles",
+    "crates/resource-cycles-derive", "crates/test-suite",
+]
+resolver = "2"
+
+[workspace.package]
+edition = "2024"
+license = "MIT"
+
+# TODO: Najib: Rework the `lints` section after [this issue](https://github.com/rust-lang/cargo/issues/12918) is resolved.
+
+[workspace.lints.rust]
+unsafe_code = "deny"
+missing_docs = "warn"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = 0 }
+nursery = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -2 }
+correctness = { level = "deny", priority = -3 }
+suspicious = { level = "warn", priority = -4 }
+style = { level = "warn", priority = -5 }
+complexity = { level = "warn", priority = -6 }
+perf = { level = "warn", priority = -7 }
+unwrap_used = { level = "warn", priority = -8 }
+expect_used = { level = "warn", priority = -9 }
+panic = { level = "warn", priority = -10 }
+cast_lossless = { level = "warn", priority = -11 }
+missing_docs_in_private_items = { level = "warn", priority = -12 }
+unnecessary_debug_formatting = { level = "allow", priority = 1 }
+
+[workspace.dependencies]
