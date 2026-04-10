@@ -33,3 +33,5 @@ missing_docs_in_private_items = { level = "warn", priority = -12 }
 unnecessary_debug_formatting = { level = "allow", priority = 1 }
 
 [workspace.dependencies]
+anyhow = "1.0.102"
+resource-cycles = { path = "crates/resource-cycles" }
