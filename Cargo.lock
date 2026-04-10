@@ -110,7 +110,7 @@ name = "oxygen-not-included"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "resource-cycles",
+ "resource-chains",
 ]
 
 [[package]]
@@ -142,22 +142,22 @@ dependencies = [
 ]
 
 [[package]]
-name = "resource-cycles"
+name = "resource-chains"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "resource-cycles-derive",
+ "resource-chains-derive",
 ]
 
 [[package]]
-name = "resource-cycles-derive"
+name = "resource-chains-derive"
 version = "0.1.0"
 dependencies = [
  "anyhow",
  "deluxe",
  "proc-macro2",
  "quote",
- "resource-cycles",
+ "resource-chains",
  "syn",
 ]
 

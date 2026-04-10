@@ -62,7 +62,7 @@ fn reflective_derive2(item: TokenStream2) -> deluxe::Result<TokenStream2> {
 /// # Example
 ///
 /// ```rust
-/// use resource_cycles::Reflective;
+/// use resource_chains::Reflective;
 ///
 /// #[derive(Reflective)]
 /// struct Foo;

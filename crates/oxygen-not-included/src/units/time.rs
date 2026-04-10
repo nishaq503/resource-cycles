@@ -1,6 +1,6 @@
 //! Units used to measure time in the game "Oxygen Not Included".
 
-use resource_cycles::{
+use resource_chains::{
     Reflective,
     units::{Time, Units},
 };

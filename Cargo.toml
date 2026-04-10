@@ -2,8 +2,8 @@
 members = [
     "crates/chemical-reactions",
     "crates/oxygen-not-included",
-    "crates/resource-cycles",
-    "crates/resource-cycles-derive",
+    "crates/resource-chains",
+    "crates/resource-chains-derive",
     "crates/test-suite",
 ]
 resolver = "2"
@@ -35,8 +35,8 @@ missing_docs_in_private_items = { level = "warn", priority = -12 }
 unnecessary_debug_formatting = { level = "allow", priority = 1 }
 
 [workspace.dependencies]
-resource-cycles = { path = "crates/resource-cycles" }
-resource-cycles-derive = { path = "crates/resource-cycles-derive" }
+resource-chains = { path = "crates/resource-chains" }
+resource-chains-derive = { path = "crates/resource-chains-derive" }
 anyhow = "1.0.102"
 quote = "1.0.45"
 syn = "2.0.117"

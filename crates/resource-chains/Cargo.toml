@@ -1,12 +1,12 @@
 [package]
-name = "resource-cycles"
+name = "resource-chains"
 version = "0.1.0"
 edition.workspace = true
 license.workspace = true
 
 [dependencies]
 anyhow.workspace = true
-resource-cycles-derive = { workspace = true }
+resource-chains-derive = { workspace = true }
 
 [lints]
 workspace = true

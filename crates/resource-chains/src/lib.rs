@@ -8,16 +8,16 @@ pub use process::{Device, Process};
 pub use resource::Resource;
 pub use units::Units;
 
-extern crate resource_cycles_derive;
+extern crate resource_chains_derive;
 
-pub use resource_cycles_derive::Reflective;
+pub use resource_chains_derive::Reflective;
 
 /// A `Reflective` type is one that can be named as a `String` and parsed from a `String`.
 ///
 /// # Example
 ///
 /// ```rust
-/// use resource_cycles::Reflective;
+/// use resource_chains::Reflective;
 ///
 /// struct Foo;
 ///
