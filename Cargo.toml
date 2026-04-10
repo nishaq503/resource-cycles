@@ -1,5 +1,6 @@
 [workspace]
 members = [
+    "crates/chemical-reactions",
     "crates/oxygen-not-included",
     "crates/resource-cycles",
     "crates/resource-cycles-derive",
