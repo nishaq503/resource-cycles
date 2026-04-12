@@ -9,6 +9,9 @@ extern crate resource_chains_derive;
 
 pub use resource_chains_derive::Reflective;
 
+// Re-export of `anyhow` because the `Reflective` trait and its derive macro require it.
+pub use anyhow;
+
 /// A `Reflective` type is one that can be named as, and parsed from, a string.
 ///
 /// This is useful for defining resources and processes in a way that can be easily serialized and deserialized, and can be used in cross-language contexts.

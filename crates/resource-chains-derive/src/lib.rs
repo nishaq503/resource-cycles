@@ -37,7 +37,7 @@ fn reflective_derive2(item: TokenStream2) -> deluxe::Result<TokenStream2> {
     // generate impl
     Ok(quote::quote! {
         impl #impl_generics Reflective for #ident #type_generics #where_clause {
-            type ParseError = anyhow::Error;
+            type ParseError = ::resource_chains::anyhow::Error;
 
             fn type_name() -> &'static str {
                 #ident_str_hyphenated
@@ -46,7 +46,7 @@ fn reflective_derive2(item: TokenStream2) -> deluxe::Result<TokenStream2> {
             fn parse(s: &str) -> Result<Self, Self::ParseError> {
                 match s {
                     #ident_str_hyphenated #(| #extra_names)* => Ok(Self),
-                    _ => Err(anyhow::anyhow!("Invalid value: {s}. Expected '{}', or one of: {}.", #ident_str_hyphenated, #extra_names_str)),
+                    _ => Err(::resource_chains::anyhow::anyhow!("Invalid value: {s}. Expected '{}', or one of: {}.", #ident_str_hyphenated, #extra_names_str)),
                 }
             }
         }
