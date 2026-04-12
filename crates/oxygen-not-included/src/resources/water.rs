@@ -1,6 +1,6 @@
 //! The various kinds of water in the game. These include pure [water](https://oxygennotincluded.wiki.gg/wiki/Water), [polluted water](https://oxygennotincluded.wiki.gg/wiki/Polluted_Water), [salt water](https://oxygennotincluded.wiki.gg/wiki/Salt_Water), and [brine](https://oxygennotincluded.wiki.gg/wiki/Brine).
 
-use resource_chains::{Reflective, Resource, units::Kilogram};
+use resource_chains::{prelude::*, units::Kilogram};
 
 /// Pure [Water](https://oxygennotincluded.wiki.gg/wiki/Water) is measured in kilograms (kg).
 #[derive(Reflective)]

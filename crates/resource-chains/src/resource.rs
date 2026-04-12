@@ -1,4 +1,4 @@
-//! A `Resource` represents a node in the graph.
+//! Resources represent nodes in the graph. They can be consumed and produced by processes, and they have associated units of measurement.
 
 use crate::{Reflective, units::Units};
 

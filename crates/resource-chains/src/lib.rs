@@ -1,12 +1,9 @@
-//! Studying resource cycles using cyclic graphs.
+//! Studying resource creation and consumption pathways using graphs.
 
+pub mod prelude;
 pub mod process;
 pub mod resource;
 pub mod units;
-
-pub use process::{Device, Process};
-pub use resource::Resource;
-pub use units::Units;
 
 extern crate resource_chains_derive;
 
@@ -69,3 +66,28 @@ impl Reflective for () {
         }
     }
 }
+
+/// A macro to implement `Reflective` for primitive types.
+macro_rules! impl_reflective_for_primitive {
+    ($($t:ty),*) => {
+        $(
+            impl Reflective for $t {
+                type ParseError = anyhow::Error;
+
+                fn type_name() -> &'static str {
+                    stringify!($t)
+                }
+
+                fn parse(s: &str) -> Result<Self, Self::ParseError> {
+                    s.parse::<$t>().map_err(|e| {
+                        anyhow::anyhow!("Failed to parse '{}' as {}: {}", s, Self::type_name(), e)
+                    })
+                }
+            }
+        )*
+    };
+}
+
+impl_reflective_for_primitive!(
+    i8, i16, i32, i64, i128, isize, u8, u16, u32, u64, u128, usize, f32, f64, bool, char, String
+);

@@ -1,6 +1,6 @@
 //! An [Ovagro Node](https://oxygennotincluded.wiki.gg/wiki/Ovagro_Node).
 
-use resource_chains::{Process, Reflective};
+use resource_chains::prelude::*;
 
 /// An [`OvagroNode`] is a plant in the game.
 #[derive(Reflective)]

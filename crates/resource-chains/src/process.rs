@@ -1,4 +1,4 @@
-//! A `Process` represents an edge in the graph, connecting two or more resources.
+//! Processes represent edges in the graph. They consume some resources and produce others.
 
 use crate::{Reflective, units::Time};
 
@@ -15,16 +15,13 @@ pub trait Process: Reflective {
 }
 
 /// A `Device` represents an entity that can perform processes, such as a machine, a person, etc.
-pub trait Device: Reflective {}
+pub trait Device: Reflective {
+    /// Resources required to run the device.
+    fn required_resources(&self) -> Vec<(&str, f64)>;
+}
 
 /// An `ActualizedProcess` is a process that must be performed by a specific `Device`.
 pub trait ActualizedProcess: Process {
     /// The device that must perform this process.
     type Device: Device;
 }
-
-/// A `Person` is a device that can perform processes.
-#[derive(Reflective)]
-pub struct Person;
-
-impl Device for Person {}

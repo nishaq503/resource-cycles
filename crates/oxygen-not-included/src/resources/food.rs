@@ -1,6 +1,6 @@
 //! Various food resources in the game "Oxygen Not Included".
 
-use resource_chains::{Reflective, Resource};
+use resource_chains::prelude::*;
 
 /// The [`OvagroNode`](crate::plants::OvagroNode) produces [`OvagroFig`]s.
 #[derive(Reflective)]

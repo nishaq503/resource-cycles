@@ -12,7 +12,7 @@ pub trait Time: Units {
 }
 
 /// A `Second` is a unit of time equal to one second.
-#[derive(Reflective)]
+#[derive(Reflective, Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[extra_names(extra_names = ["sec", "s"])]
 pub struct Second;
 
@@ -25,7 +25,7 @@ impl Time for Second {
 }
 
 /// A `Kilogram` is a unit of mass equal to one kilogram.
-#[derive(Reflective)]
+#[derive(Reflective, Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[extra_names(extra_names = ["kg"])]
 pub struct Kilogram;
 
