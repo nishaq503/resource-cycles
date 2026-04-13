@@ -12,9 +12,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Install Rust
-        run: rustup update --no-self-update
+      - name: Set up Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          components: rustfmt, clippy
       - name: Run linters
         uses: j178/prek-action@v2
       - name: Run Rust tests
         run: cargo test --release --all-features --workspace
+      - name: Run Rust test-suite
+        run: cargo run -rp test-suite --all-features
