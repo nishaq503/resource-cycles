@@ -85,6 +85,9 @@ pub trait Reflective: Sized {
     /// A regex pattern that matches valid string representations of instances of the type.
     fn regex_pattern<'a>() -> &'a lazy_regex::Regex;
 
+    /// Convert an instance of the type into a string.
+    fn to_string(&self) -> String;
+
     /// Parse an instance of the type from a string.
     ///
     /// # Errors
@@ -92,3 +95,64 @@ pub trait Reflective: Sized {
     /// Returns an error if the string cannot be parsed into an instance of the type.
     fn parse(s: &str) -> Result<Self, Self::ParseError>;
 }
+
+impl Reflective for () {
+    type ParseError = anyhow::Error;
+
+    fn type_name() -> &'static str {
+        "()"
+    }
+
+    fn regex_pattern<'a>() -> &'a lazy_regex::Regex {
+        lazy_regex::regex!(r"^\s*$") // Match an empty string (with optional whitespace)
+    }
+
+    fn to_string(&self) -> String {
+        String::new()
+    }
+
+    fn parse(s: &str) -> Result<Self, Self::ParseError> {
+        Self::regex_pattern().captures(s).map_or_else(
+            || {
+                Err(anyhow::anyhow!(
+                    "Invalid input: {s}. Expected an empty string."
+                ))
+            },
+            |_| Ok(()),
+        )
+    }
+}
+
+/// A macro to derive the `Reflective` trait for several primitive types at once.
+macro_rules! impl_reflective_for_primitives {
+    ($($t:ty),*) => {
+        $(
+            impl Reflective for $t {
+                type ParseError = anyhow::Error;
+
+                fn type_name() -> &'static str {
+                    stringify!($t)
+                }
+
+                fn regex_pattern<'a>() -> &'a lazy_regex::Regex {
+                    lazy_regex::regex!(r"^-?\d+(\.\d+)?$") // Match integers and floating-point numbers
+                }
+
+                fn to_string(&self) -> String {
+                    format!("{self}")
+                }
+
+                fn parse(s: &str) -> Result<Self, Self::ParseError> {
+                    Self::regex_pattern().captures(s).map_or_else(
+                        || Err(anyhow::anyhow!("Invalid input: {s}. Expected a valid {}.", stringify!($t))),
+                        |_| s.parse().map_err(|e| anyhow::anyhow!("Failed to parse '{}': {}", s, e)),
+                    )
+                }
+            }
+        )*
+    };
+}
+
+impl_reflective_for_primitives!(
+    i8, i16, i32, i64, i128, isize, u8, u16, u32, u64, u128, usize, f32, f64
+);
