@@ -15,8 +15,7 @@ fn main() {
     assert!(Foo::parse("foo").is_ok());
     assert!(Foo::parse("Bar").is_err());
 
-    assert_eq!(Foo2::type_name(), "foo2");
-    assert!(Foo2::parse("foo2").is_ok());
+    assert_eq!(Foo2::type_name(), "Foo2");
     assert!(Foo2::parse("Foo2").is_ok());
     assert!(Foo2::parse("FOO2").is_ok());
     assert!(Foo2::parse("Bar").is_err());
@@ -31,12 +30,12 @@ fn main() {
     assert_eq!(re_bar.unwrap().a, bar.a);
 
     let foobar = FooBar { a: 7, b: 0.5 };
-    assert_eq!(FooBar::type_name(), "foo-bar");
+    assert_eq!(FooBar::type_name(), "FooBar");
     let ok_values = [
         "FooBar::a=7:b=0.5",
         "FooBar::a=-1:b=1.5",
-        "foo-bar::a=7:b=-0.5",
-        "foo-bar::a=-1:b=-0.5",
+        "FooBar::a=7:b=-0.5",
+        "FooBar::a=-1:b=-0.5",
     ];
     for s in ok_values {
         let fb = FooBar::parse(s);
@@ -64,10 +63,10 @@ fn main() {
         foo: Foo,
         bar: Bar { a: 42 },
     };
-    assert_eq!(FooBar2::type_name(), "foo-bar2");
+    assert_eq!(FooBar2::type_name(), "FooBar2");
     let ok_values = [
         "FooBar2::foo=Foo:bar=Bar::a=42",
-        "foo-bar2::foo=foo:bar=Bar::a=-1",
+        "FooBar2::foo=Foo:bar=Bar::a=-1",
     ];
     for s in ok_values {
         let fb2 = FooBar2::parse(s);

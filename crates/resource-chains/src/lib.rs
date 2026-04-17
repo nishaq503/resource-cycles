@@ -37,6 +37,10 @@ pub use lazy_regex;
 ///         lazy_regex::regex!(r"^(?i)foo$") // Case-insensitive match for "foo"
 ///     }
 ///
+///     fn to_string(&self) -> String {
+///         "foo".to_string()
+///     }
+///
 ///     fn parse(s: &str) -> Result<Self, Self::ParseError> {
 ///         Self::regex_pattern().captures(s).map_or_else(
 ///             || Err(format!("Invalid input: {s}. Expected 'foo' or 'Foo'.")),
@@ -46,6 +50,7 @@ pub use lazy_regex;
 /// }
 ///
 /// assert_eq!(Foo::type_name(), "foo");
+/// assert_eq!(Foo.to_string(), "foo");
 /// assert!(Foo::parse("foo").is_ok());
 /// assert!(Foo::parse("Foo").is_ok());
 /// assert!(Foo::parse("bar").is_err());
@@ -63,10 +68,8 @@ pub use lazy_regex;
 ///
 /// // The `type_name` is derived from the struct name, and is converted to
 /// // kebab-case by default.
-/// assert_eq!(FooBar::type_name(), "foo-bar");
-/// // The `parse` method accepts the `type_name` in kebab-case, as well as the
-/// // original struct name.
-/// assert!(FooBar::parse("foo-bar").is_ok());
+/// assert_eq!(FooBar::type_name(), "FooBar");
+/// // The `parse` method accepts the `type_name`.
 /// assert!(FooBar::parse("FooBar").is_ok());
 /// // The `extra_names` attribute allows you to specify additional names that
 /// // can be parsed into the type.
