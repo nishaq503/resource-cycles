@@ -5,9 +5,9 @@ pub mod process;
 pub mod resource;
 pub mod units;
 
-extern crate resource_chains_derive;
+extern crate resource_chains_macros;
 
-pub use resource_chains_derive::Reflective;
+pub use resource_chains_macros::Reflective;
 
 // Re-exports of some crates because the `Reflective` trait and its derive macro require it.
 pub use anyhow;

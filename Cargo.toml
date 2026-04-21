@@ -3,7 +3,7 @@ members = [
     "crates/chemical-reactions",
     "crates/oxygen-not-included",
     "crates/resource-chains",
-    "crates/resource-chains-derive",
+    "crates/resource-chains-macros",
     "crates/test-suite",
 ]
 resolver = "2"
@@ -36,7 +36,7 @@ unnecessary_debug_formatting = { level = "allow", priority = 1 }
 
 [workspace.dependencies]
 resource-chains = { path = "crates/resource-chains" }
-resource-chains-derive = { path = "crates/resource-chains-derive" }
+resource-chains-macros = { path = "crates/resource-chains-macros" }
 anyhow = "1.0.102"
 quote = "1.0.45"
 syn = "2.0.117"

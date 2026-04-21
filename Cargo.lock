@@ -208,11 +208,11 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "lazy-regex",
- "resource-chains-derive",
+ "resource-chains-macros",
 ]
 
 [[package]]
-name = "resource-chains-derive"
+name = "resource-chains-macros"
 version = "0.1.0"
 dependencies = [
  "anyhow",
