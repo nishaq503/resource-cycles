@@ -100,14 +100,14 @@ pub trait Reflective: Sized {
 }
 
 impl Reflective for () {
-    type ParseError = anyhow::Error;
+    type ParseError = Box<dyn core::error::Error + Send + Sync>;
 
     fn type_name() -> &'static str {
         "()"
     }
 
     fn regex<'a>() -> &'a lazy_regex::Regex {
-        lazy_regex::regex!(r"^\s*$") // Match an empty string (with optional whitespace)
+        lazy_regex::regex!(r"^()::\s*$") // Match an empty string (with optional whitespace)
     }
 
     fn to_string(&self) -> String {
@@ -117,9 +117,10 @@ impl Reflective for () {
     fn parse(s: &str) -> Result<Self, Self::ParseError> {
         Self::regex().captures(s).map_or_else(
             || {
-                Err(anyhow::anyhow!(
-                    "Invalid input: {s}. Expected an empty string."
-                ))
+                Err(
+                    anyhow::anyhow!("Invalid input: {s}. Expected an empty string.")
+                        .into_boxed_dyn_error(),
+                )
             },
             |_| Ok(()),
         )
@@ -131,7 +132,7 @@ macro_rules! impl_reflective_for_primitives {
     ($($t:ty),*) => {
         $(
             impl Reflective for $t {
-                type ParseError = anyhow::Error;
+                type ParseError = Box<dyn core::error::Error + Send + Sync>;
 
                 fn type_name() -> &'static str {
                     stringify!($t)
@@ -147,8 +148,8 @@ macro_rules! impl_reflective_for_primitives {
 
                 fn parse(s: &str) -> Result<Self, Self::ParseError> {
                     Self::regex().captures(s).map_or_else(
-                        || Err(anyhow::anyhow!("Invalid input: {s}. Expected a valid {}.", stringify!($t))),
-                        |_| s.parse().map_err(|e| anyhow::anyhow!("Failed to parse '{}': {}", s, e)),
+                        || Err(anyhow::anyhow!("Invalid input: {s}. Expected a valid {}.", stringify!($t)).into_boxed_dyn_error()),
+                        |_| s.parse().map_err(|e| anyhow::anyhow!("Failed to parse '{}': {}", s, e).into_boxed_dyn_error()),
                     )
                 }
             }

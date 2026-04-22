@@ -215,7 +215,6 @@ dependencies = [
 name = "resource-chains-macros"
 version = "0.1.0"
 dependencies = [
- "anyhow",
  "deluxe",
  "lazy-regex",
  "proc-macro2",

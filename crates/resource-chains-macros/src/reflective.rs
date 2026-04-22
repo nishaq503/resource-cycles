@@ -93,7 +93,7 @@ fn derive_unit_struct(
 
     quote::quote! {
         impl #impl_generics Reflective for #ident #type_generics #where_clause {
-            type ParseError = ::resource_chains::anyhow::Error;
+            type ParseError = Box<dyn ::core::error::Error + Send + Sync>;
 
             fn type_name() -> &'static str {
                 #ident_str
@@ -109,7 +109,7 @@ fn derive_unit_struct(
 
             fn parse(s: &str) -> Result<Self, Self::ParseError> {
                 Self::regex().captures(s).map_or_else(
-                    || Err(::resource_chains::anyhow::anyhow!(#error_message, s = s)),
+                    || Err(::resource_chains::anyhow::anyhow!(#error_message, s = s).into_boxed_dyn_error()),
                     |_| Ok(Self),
                 )
             }
@@ -134,7 +134,7 @@ fn derive_tuple_struct(
 
     quote::quote! {
         impl #impl_generics Reflective for #ident #type_generics #where_clause {
-            type ParseError = ::resource_chains::anyhow::Error;
+            type ParseError = Box<dyn ::core::error::Error + Send + Sync>;
 
             fn type_name() -> &'static str {
                 #ident_str
@@ -177,7 +177,7 @@ fn derive_tuple_struct(
 
             fn parse(s: &str) -> Result<Self, Self::ParseError> {
                 Self::regex().captures(s).map_or_else(
-                    || Err(::resource_chains::anyhow::anyhow!(#error_message, s = s)),
+                    || Err(::resource_chains::anyhow::anyhow!(#error_message, s = s).into_boxed_dyn_error()),
                     |captures| Ok(Self(
                         #(
                             ::resource_chains::Reflective::parse(
@@ -205,7 +205,7 @@ fn derive_struct(
 
     quote::quote! {
         impl #impl_generics Reflective for #ident #type_generics #where_clause {
-            type ParseError = ::resource_chains::anyhow::Error;
+            type ParseError = Box<dyn ::core::error::Error + Send + Sync>;
 
             fn type_name() -> &'static str {
                 #ident_str
@@ -224,7 +224,7 @@ fn derive_struct(
 
             fn parse(s: &str) -> Result<Self, Self::ParseError> {
                 Self::regex().captures(s).map_or_else(
-                    || Err(::resource_chains::anyhow::anyhow!(#error_message, s = s)),
+                    || Err(::resource_chains::anyhow::anyhow!(#error_message, s = s).into_boxed_dyn_error()),
                     |captures| {
                         Ok(Self {
                             #(
